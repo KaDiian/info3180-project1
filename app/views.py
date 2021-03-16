@@ -4,11 +4,11 @@ Jinja2 Documentation:    http://jinja.pocoo.org/2/documentation/
 Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
-
+import os
 from app import app
-from flask import render_template, request, redirect, url_for
-
-
+from flask import render_template, request, redirect, url_for, flash
+from app.forms import PropertyForm
+from werkzeug.utils import secure_filename
 ###
 # Routing for your application.
 ###
@@ -24,7 +24,38 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route('/property')
+def property():
+    form = PropertyForm()
+    if request.method == "POST" and form.validate_on_submit():
+        title = request.form['title']
+        bedrooms = request.form['bedrooms']
+        bathrooms = request.form['bathrooms']
+        location = request.form['location']
+        price = request.form['price']
+        types = request.form['types']
+        description = request.form['description']
 
+        photo = request.form['photo']
+        filename = secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        flash('File Saved', 'success')
+        return redirect(url_for('home'))
+    return render_template('property.html', form=form)
+
+@app.route('/properties')
+def properties():
+    return render_template('properties.html')
+
+@app.route('/property/<propertyid>')
+def show_property(propertyid):
+    if userid != '':
+        user=UserProfile.query.filter_by(id=userid).first()
+    else:
+        flash("No such user exists")
+        return redirect(url_for("properties"))
+
+    return render_template('property.html')
 ###
 # The functions below should be applicable to all Flask apps.
 ###

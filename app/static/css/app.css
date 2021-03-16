@@ -1,3 +1,14 @@
 body {
     padding-top: 50px;
 }
+.form-group{
+    font-weight: bold;
+}
+.btn{
+    background-color: blue;
+    padding: 5px, 10px, 5px, 10px;
+    color: white;
+}
+.btn:hover{
+    cursor: pointer;
+}
