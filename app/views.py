@@ -8,6 +8,7 @@ import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash
 from app.forms import PropertyForm
+from app.models import UserProperties
 from werkzeug.utils import secure_filename
 ###
 # Routing for your application.
@@ -40,7 +41,7 @@ def property():
         filename = secure_filename(photo.filename)
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash('File Saved', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('properties'))
     return render_template('property.html', form=form)
 
 @app.route('/properties')
@@ -49,11 +50,11 @@ def properties():
 
 @app.route('/property/<propertyid>')
 def show_property(propertyid):
-    if userid != '':
-        user=UserProfile.query.filter_by(id=userid).first()
-    else:
-        flash("No such user exists")
-        return redirect(url_for("properties"))
+    #if id != '':
+     #   user=UserProperties.query.filter_by(id=id).first()
+    #else:
+     #   flash("No such user exists")
+      #  return redirect(url_for("properties"))
 
     return render_template('property.html')
 ###

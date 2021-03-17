@@ -11,12 +11,12 @@ class UserProperties(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     description = db.Column(db.String(250))
-    bedrooms = db.Column(db.Integer(10))
-    bathrooms = db.Column(db.Integer(10))
-    price = db.Column(db.Integer(50))
+    bedrooms = db.Column(db.Integer)
+    bathrooms = db.Column(db.Integer)
+    price = db.Column(db.Integer)
     types = db.Column(db.String(20))
-    location = db.Columns(db.String(200))
-    photo = db.Columns(db.String(20))
+    location = db.Column(db.String(200))
+    photo = db.Column(db.String(20))
 
     def __init__(self, title, description, bedrooms, bathrooms, price, types, location, photo):
         self.title = title
