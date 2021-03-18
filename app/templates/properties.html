@@ -3,10 +3,11 @@
 {% block main %}
 
     <h1>Properties</h1>
-    {% include 'flash_messages.html' %}
+    {% include 'flash_message.html' %}
     <ul>
         {% for pics in pro %}
             <img class="image" src="{{ url_for('get_image', filename=pics.photo) }}" />
+        
         {% endfor %}
     </ul>
 

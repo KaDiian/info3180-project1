@@ -5,7 +5,7 @@ class UserProperties(db.Model):
    
     __tablename__ = 'properties'
 
-    propertyid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement =True)
     title = db.Column(db.String(100))
     description = db.Column(db.String(250))
     bedrooms = db.Column(db.Integer)

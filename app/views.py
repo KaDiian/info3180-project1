@@ -25,31 +25,33 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
-@app.route('/property')
+@app.route('/property', methods = ["POST", "GET"])
 def property():
     form = PropertyForm()
     if request.method == "POST" and form.validate_on_submit():
-        photo = request.form['photo']
+        photo = form.photo.data
         filename = secure_filename(photo.filename)
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        db.session.add(UserProperties(title = request.form['title'], bedrooms = request.form['bedrooms'], bathrooms = request.form['bathrooms'], location = request.form['location'], price = request.form['price'], types = request.form['types'], description = request.form['description']))
+        user=UserProperties(title = request.form['title'], description = request.form['description'], bedrooms = request.form['bedrooms'], bathrooms = request.form['bathrooms'],price = request.form['price'], types = request.form['types'], location = request.form['location'], photo=filename)
+
+        db.session.add(user)
         db.session.commit()
 
         flash('Property Saved', 'success')
         return redirect(url_for('properties'))
     return render_template('property.html', form=form)
 
-@app.route('/properties')
+@app.route('/properties', methods=["GET"])
 def properties():
-    pro = UserProperties.query.all()
+    pro = db.session.query(UserProperties).all()
     return render_template('properties.html', pro=pro)
 
-@app.route('/property/<propertyid>')
+@app.route('/property/<propertyid>', methods=["GET"])
 def show_property(propertyid):
-    user = UserProperties.query.filter_by(propertyid=propertyid).first()
+    userAll = db.session.query(UserProperties).filter(UserProperties.id==propertyid).first()
 
-    return render_template('propertyid.html', user=user)
+    return render_template('propertyid.html', userAll=userAll)
 
 @app.route('/uploads/<filename>')
 def get_image(filename):
