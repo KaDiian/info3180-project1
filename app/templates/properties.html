@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div class="property-form">
+
     <h1>Properties</h1>
-    <form action="{{ url_for('properties') }}" method="POST"></form>
-</div>
+    {% include 'flash_messages.html' %}
+    <ul>
+        {% for pics in pro %}
+            <img class="image" src="{{ url_for('get_image', filename=pics.photo) }}" />
+        {% endfor %}
+    </ul>
 
 {% endblock %}

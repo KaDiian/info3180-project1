@@ -4,7 +4,7 @@
 <div class="property-form">
     <h1>Add New Property</h1>
     {%include 'flash_message.html' %}
-    <form action="{{ url_for('property') }}" method="POST">
+    <form action="{{ url_for('property') }}" method="POST" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <div class="form-group">
             {{ form.title.label }}

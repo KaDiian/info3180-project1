@@ -5,8 +5,8 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 import os
-from app import app
-from flask import render_template, request, redirect, url_for, flash
+from app import app,db
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from app.forms import PropertyForm
 from app.models import UserProperties
 from werkzeug.utils import secure_filename
@@ -29,34 +29,33 @@ def about():
 def property():
     form = PropertyForm()
     if request.method == "POST" and form.validate_on_submit():
-        title = request.form['title']
-        bedrooms = request.form['bedrooms']
-        bathrooms = request.form['bathrooms']
-        location = request.form['location']
-        price = request.form['price']
-        types = request.form['types']
-        description = request.form['description']
-
         photo = request.form['photo']
         filename = secure_filename(photo.filename)
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        flash('File Saved', 'success')
+
+        db.session.add(UserProperties(title = request.form['title'], bedrooms = request.form['bedrooms'], bathrooms = request.form['bathrooms'], location = request.form['location'], price = request.form['price'], types = request.form['types'], description = request.form['description']))
+        db.session.commit()
+
+        flash('Property Saved', 'success')
         return redirect(url_for('properties'))
     return render_template('property.html', form=form)
 
 @app.route('/properties')
 def properties():
-    return render_template('properties.html')
+    pro = UserProperties.query.all()
+    return render_template('properties.html', pro=pro)
 
 @app.route('/property/<propertyid>')
 def show_property(propertyid):
-    #if id != '':
-     #   user=UserProperties.query.filter_by(id=id).first()
-    #else:
-     #   flash("No such user exists")
-      #  return redirect(url_for("properties"))
+    user = UserProperties.query.filter_by(propertyid=propertyid).first()
 
-    return render_template('property.html')
+    return render_template('propertyid.html', user=user)
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    rootdir = os.getcwd()
+    return send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']), filename)
+ 
 ###
 # The functions below should be applicable to all Flask apps.
 ###
