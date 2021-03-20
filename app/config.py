@@ -16,4 +16,4 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     """Production Config that extends the Base Config Object"""
-    DEBUG = False
+    DEBUG = False 
