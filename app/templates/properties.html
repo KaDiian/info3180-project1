@@ -4,11 +4,23 @@
 
     <h1>Properties</h1>
     {% include 'flash_message.html' %}
-    <ul>
-        {% for pics in pro %}
-            <img class="image" src="{{ url_for('get_image', filename=pics.photo) }}" />
-        
+    <div class="cards">
+        {% for user in pro %}
+        <div class="card">
+            <img class="image" src="{{ url_for('get_image', filename=user.photo) }}" />
+            <div class ="card-group" id="title">
+                <h2>{{user.title }}</h2>
+            </div>
+            <div id="loca">
+                <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='icon.png')}}">
+                <p>{{user.location }}</p></span>
+            </div>
+            <div>
+                <p class="pricestyle style">${{user.price }}</p>
+            </div>                              
+            <a href="{{url_for('show_property',propertyid=user.id) }}"><button id="btn">View Property</button></a>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 
 {% endblock %}

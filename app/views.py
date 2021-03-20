@@ -33,7 +33,14 @@ def property():
         filename = secure_filename(photo.filename)
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        user=UserProperties(title = request.form['title'], description = request.form['description'], bedrooms = request.form['bedrooms'], bathrooms = request.form['bathrooms'],price = request.form['price'], types = request.form['types'], location = request.form['location'], photo=filename)
+        user=UserProperties(title = request.form['title'], 
+        description = request.form['description'], 
+        bedrooms = request.form['bedrooms'], 
+        bathrooms = request.form['bathrooms'],
+        price = request.form['price'], 
+        types = request.form['types'], 
+        location = request.form['location'], 
+        photo=filename)
 
         db.session.add(user)
         db.session.commit()
@@ -49,9 +56,9 @@ def properties():
 
 @app.route('/property/<propertyid>', methods=["GET"])
 def show_property(propertyid):
-    userAll = db.session.query(UserProperties).filter(UserProperties.id==propertyid).first()
+    oneUser = db.session.query(UserProperties).filter(UserProperties.id == propertyid).first()
 
-    return render_template('propertyid.html', userAll=userAll)
+    return render_template('propertyid.html', oneUser=oneUser)
 
 @app.route('/uploads/<filename>')
 def get_image(filename):

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block main %}
+    
+        <div class="cardO">
+            
+            <div class="pic">
+                <img class="image1" id="pic1" src="{{ url_for('get_image', filename=oneUser.photo) }}" />
+            </div>
+
+            <div class="bodyO">
+                <div>
+                    <h2>{{oneUser.title }}</h2>
+                </div>
+            
+                <div>
+                    <p class="pricestyle style">${{oneUser.price }}</p>
+                    <p class="pricestyle styles">{{oneUser.types }}</p>
+                </div>
+                
+                <div id="desc">
+                    <p>{{oneUser.description }}</p>
+                </div>
+
+                <div id="rooms">
+                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='bed.png')}}">
+                    <p>{{oneUser.bedrooms }} Bedrooms</p></span>
+                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='shower.jpg')}}">
+                    <p>{{oneUser.bathrooms }} Bathrooms</p></span>
+                </div>
+                
+                <div id="loca">
+                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='icon.png')}}">
+                    <p>{{oneUser.location }}</p></span>
+                </div>
+                <button id="btn2">Email Realtor</button>
+            </div>
+        </div>
+        
+{% endblock %}
