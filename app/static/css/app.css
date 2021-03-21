@@ -20,7 +20,7 @@ body {
 }
 .image1{
     width: 350px;
-    height: 300px;
+    height: 390px;
 }
 .icon-img{
     width: 30px;
@@ -82,14 +82,29 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 2rem;
 }
-.cardO{
-    display: grid;
-    grid-template-columns:  1fr 1fr;
+/*
+.card0O{
+    display: flex;
+    flex-direction: row;
+}*/
+
+.card00{
+    border: 2px solid #E2E8F0;
+    box-shadow: 5px #E2E8F0;
+    border-radius: 5px;
+    width: 770px;
+    height: 400px;
+}
+
+#card-side{
+    display: flex;
+    flex-direction: row;
+}
+.bodyO{
+    padding-left: 60px;
 }
 .side p{
     display: inline-block;
     padding-right: 20px;
 }
-.pic{
-    padding-left: 160px;
-}
+

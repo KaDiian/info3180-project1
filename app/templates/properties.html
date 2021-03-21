@@ -16,7 +16,7 @@
                 <p>{{user.location }}</p></span>
             </div>
             <div>
-                <p class="pricestyle style">${{user.price }}</p>
+                <p class="pricestyle style">{{'$' + '{:,.0f}'.format (user.price)|string }}</p>
             </div>                              
             <a href="{{url_for('show_property',propertyid=user.id) }}"><button id="btn">View Property</button></a>
         </div>

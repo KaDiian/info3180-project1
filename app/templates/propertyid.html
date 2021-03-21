@@ -2,39 +2,42 @@
 
 {% block main %}
     
-        <div class="cardO">
-            
-            <div class="pic">
-                <img class="image1" id="pic1" src="{{ url_for('get_image', filename=oneUser.photo) }}" />
-            </div>
-
-            <div class="bodyO">
-                <div>
-                    <h2>{{oneUser.title }}</h2>
-                </div>
-            
-                <div>
-                    <p class="pricestyle style">${{oneUser.price }}</p>
-                    <p class="pricestyle styles">{{oneUser.types }}</p>
-                </div>
-                
-                <div id="desc">
-                    <p>{{oneUser.description }}</p>
+        <div class="cards0">
+            {% for user in oneUser %}
+            <div class="card00" id="card-side">
+                <div class="pic">
+                    <img class="image1" id="pic1" src="{{ url_for('get_image', filename=user.photo) }}" />
                 </div>
 
-                <div id="rooms">
-                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='bed.png')}}">
-                    <p>{{oneUser.bedrooms }} Bedrooms</p></span>
-                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='shower.jpg')}}">
-                    <p>{{oneUser.bathrooms }} Bathrooms</p></span>
-                </div>
+                <div class="bodyO">
+                    <div>
+                        <h2>{{user.title }}</h2>
+                    </div>
                 
-                <div id="loca">
-                    <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='icon.png')}}">
-                    <p>{{oneUser.location }}</p></span>
+                    <div>
+                        <p class="pricestyle style">{{'$' + '{:,.0f}'.format (user.price)|string }}</p>
+                        <p class="pricestyle styles">{{user.types }}</p>
+                    </div>
+                    
+                    <div id="desc">
+                        <p>{{user.description }}</p>
+                    </div>
+
+                    <div id="rooms">
+                        <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='bed.png')}}">
+                        <p>{{user.bedrooms }} Bedrooms</p></span>
+                        <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='shower.jpg')}}">
+                        <p>{{user.bathrooms }} Bathrooms</p></span>
+                    </div>
+                    
+                    <div id="loca">
+                        <span class="side"><img class="icon-img" src="{{url_for('get_image', filename='icon.png')}}">
+                        <p>{{user.location }}</p></span>
+                    </div>
+                    <button id="btn2">Email Realtor</button>
                 </div>
-                <button id="btn2">Email Realtor</button>
             </div>
+            {% endfor %}
         </div>
         
 {% endblock %}

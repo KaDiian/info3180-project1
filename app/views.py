@@ -56,7 +56,7 @@ def properties():
 
 @app.route('/property/<propertyid>', methods=["GET"])
 def show_property(propertyid):
-    oneUser = db.session.query(UserProperties).filter(UserProperties.id == propertyid).first()
+    oneUser = db.session.query(UserProperties).filter_by(id = propertyid).all()
 
     return render_template('propertyid.html', oneUser=oneUser)
 
